@@ -1,47 +1,36 @@
-$alert-colors: 
-(
-  "default":    $primary,
-  "success":    $success,
-  "warning":    $warning,
-  "danger":     $danger,
-);
-
+$alert-colors: ( "default": $primary, "success": $success, "warning": $warning, "danger": $danger, );
 .alert {
-  position: relative;
-  color: #fff;
-  font-size: 14px;
-  margin-bottom: 16px;
-  padding: 8px 15px;
-  border-radius: 2px;
-  @include alert-style( $blue,  #0262ef);
-
-  @each $color, $value in $alert-colors {
-    &-#{$color} {
-      @include alert-style($value, darken($value, 5%));
-    }
-  }
-
-  &-title {
-    font-size: 16px;
-    font-weight: $font-weight-bold;
-    display: block;
-    margin-bottom: 4px;
-  }
-
-  &-desc {
+    position: relative;
+    color: #fff;
     font-size: 14px;
-    display: block;
-  }
-
-  &-close {
-    background: transparent;
-    border-color: transparent;
-    position: absolute;
-    border-width: 0;
+    margin-bottom: 16px;
     padding: 8px 15px;
-    top: 0;
-    right: 0;
-  }
-
-  &-icon {}
+    border-radius: 2px;
+    @include alert-style($blue, #0262ef);
+    @each $color,
+    $value in $alert-colors {
+        &-#{$color} {
+            @include alert-style($value, darken($value, 5%));
+        }
+    }
+    &-title {
+        font-size: 16px;
+        font-weight: $font-weight-bold;
+        display: block;
+        margin-bottom: 4px;
+    }
+    &-desc {
+        font-size: 14px;
+        display: block;
+    }
+    &-close {
+        background: transparent;
+        border-color: transparent;
+        position: absolute;
+        border-width: 0;
+        padding: 8px 15px;
+        top: 0;
+        right: 0;
+    }
+    &-icon {}
 }
