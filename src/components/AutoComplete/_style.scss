@@ -1,8 +1,8 @@
-.viking-auto-complete {
+.auto-complete {
     position: relative;
 }
 
-.viking-suggestion-list {
+.suggestion-list {
     list-style: none;
     padding-left: 0;
     white-space: nowrap;
@@ -25,6 +25,7 @@
         cursor: pointer;
         transition: $menu-transition;
         color: $body-color;
+        font-size: 10px;
         &.is-active {
             background: $menu-item-active-color !important;
             color: $white !important;
@@ -33,4 +34,9 @@
             color: $menu-item-active-color !important;
         }
     }
+}
+
+.item-highlighted {
+    background: #ccc;
+    color: white;
 }
