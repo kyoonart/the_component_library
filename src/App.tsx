@@ -1,18 +1,19 @@
-import React, { useState } from 'react'
+import React, { useState } from "react";
 
-import Button from './components/Button/button'
-import Alert from './components/Alert/alert'
-import Menu from './components/Menu/menu'
-import MenuItem from './components/Menu/menuItem'
-import SubMenu from './components/Menu/subMenu'
-import Icon from './components/Icon/icon'
-import Transition from './components/Transition/transition'
+import Button from "./components/Button/button";
+import Alert from "./components/Alert/alert";
+import Menu from "./components/Menu/menu";
+import MenuItem from "./components/Menu/menuItem";
+import SubMenu from "./components/Menu/subMenu";
+import Icon from "./components/Icon/icon";
+import Transition from "./components/Transition/transition";
 
 function App() {
-  const [show, setShow] = useState(false)
+  const [show, setShow] = useState(false);
 
   return (
     <div className="App" style={{ padding: 40 }}>
+      <h2>hhh</h2>
       <Button className="custom">默认按钮</Button>
       <Button disabled>禁用</Button>
       <Button size="lg" btnType="primary">
@@ -33,7 +34,6 @@ function App() {
         <hr />
         <Alert type="danger" closable description="失败"></Alert>
         <hr />
-        <Alert type="warning" description="警告"></Alert>
         <hr />
         <Alert closable title="标题" description="自定义描述"></Alert>
       </div>
@@ -42,7 +42,7 @@ function App() {
         <Menu
           defaultIndex="2"
           onSelect={(index) => {
-            alert(index)
+            alert(index);
           }}
         >
           <MenuItem>link 1</MenuItem>
@@ -57,9 +57,9 @@ function App() {
         <Menu
           mode="vertical"
           onSelect={(index) => {
-            alert(index)
+            alert(index);
           }}
-          defaultOpenSubMenus={['3']}
+          defaultOpenSubMenus={["3"]}
         >
           <MenuItem>link 1</MenuItem>
           <MenuItem disabled>link 2</MenuItem>
@@ -80,7 +80,7 @@ function App() {
         <Button
           size="lg"
           onClick={() => {
-            setShow(!show)
+            setShow(!show);
           }}
         >
           切换动画
@@ -97,7 +97,7 @@ function App() {
         </Transition>
       </div>
     </div>
-  )
+  );
 }
 
-export default App
+export default App;

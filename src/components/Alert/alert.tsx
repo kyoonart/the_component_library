@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import classNames from "classnames";
-import { type } from "os";
 export type AlertType = "success" | "default" | "danger" | "waring";
 interface AlertProps {
   className?: string;
