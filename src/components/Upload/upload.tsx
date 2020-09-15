@@ -1,6 +1,7 @@
-import React, { FC, useRef, ChangeEvent } from "react";
+import React, { FC, useRef, ChangeEvent, useState } from "react";
 import axios from "axios";
 import Button from "../Button/button";
+import UploadList from "./uploadList";
 export type UploadFileStatus = "ready" | "uploading" | "success" | "error";
 export interface UploadFile {
   uid: string;
@@ -44,10 +45,44 @@ export interface UploadProps {
   /**是否支持拖拽上传 */
   drag?: boolean;
 }
+/**
+ * 通过点击或者拖拽上传文件
+ * ### 引用方法
+ *
+ * ~~~js
+ * import { Upload } from 'my-components'
+ * ~~~
+ */
 const Upload: FC<UploadProps> = (props) => {
-  const { action, onProgress, onSuccess, onError } = props;
+  const {
+    action,
+    onProgress,
+    onSuccess,
+    onError,
+    beforeUpload,
+    onChange,
+    defaultFileList,
+    onRemove,
+  } = props;
+  // 上传文件dom对象
   const uploadRef = useRef<HTMLInputElement>(null);
-
+  // 文件上传列表
+  const [fileList, setFileList] = useState<UploadFile[]>(defaultFileList || []);
+  // 更新文件函数
+  const updataFileList = (
+    updataFile: UploadFile,
+    updataObj: Partial<UploadFile>
+  ) => {
+    setFileList((prevList) => {
+      return prevList.map((file) => {
+        if (file.uid === updataFile.uid) {
+          return { ...file, ...updataObj };
+        } else {
+          return file;
+        }
+      });
+    });
+  };
   const handleClick = () => {
     if (uploadRef.current) {
       uploadRef.current.click();
@@ -63,39 +98,81 @@ const Upload: FC<UploadProps> = (props) => {
       uploadRef.current.value = "";
     }
   };
+  const handleRemove = (file: UploadFile) => {
+    setFileList((prevList) => {
+      return prevList.filter((item) => item.uid !== file.uid);
+    });
+    if (onRemove) {
+      onRemove(file);
+    }
+  };
   const uploadFiles = (files: FileList) => {
     const postFile = Array.from(files);
     postFile.forEach((file) => {
-      const formData = new FormData();
-      formData.append(file.name, file);
-      axios
-        .post(action, formData, {
-          headers: {
-            "Content-Type": "multiple/form-data",
-          },
-          onUploadProgress: (e) => {
-            let percentage = Math.round((e.loaded * 100) / e.total) || 0;
-            if (percentage < 100) {
-              if (onProgress) {
-                onProgress(percentage, file);
-              }
-            }
-          },
-        })
-        .then((resp) => {
-          console.log(resp);
-          if (onSuccess) {
-            onSuccess(resp.data, file);
-          }
-        })
-        .catch((err) => {
-          console.log(err);
-          if (onError) {
-            onError(err, file);
-          }
-        });
+      if (!beforeUpload) {
+        post(file);
+      } else {
+        const result = beforeUpload(file);
+        if (result && result instanceof Promise) {
+          result.then((progressFile) => {
+            post(progressFile);
+          });
+        } else if (result !== false) {
+          post(file);
+        }
+      }
     });
   };
+  const post = (file: File) => {
+    const formData = new FormData();
+    let _file: UploadFile = {
+      uid: Date.now() + "upload-file",
+      status: "ready",
+      name: file.name,
+      size: file.size,
+      percent: 0,
+      raw: file,
+    };
+    setFileList([_file, ...fileList]);
+    formData.append(file.name, file);
+    axios
+      .post(action, formData, {
+        headers: {
+          "Content-Type": "multiple/form-data",
+        },
+        onUploadProgress: (e) => {
+          let percentage = Math.round((e.loaded * 100) / e.total) || 0;
+          if (percentage < 100) {
+            updataFileList(_file, { percent: percentage, status: "uploading" });
+            if (onProgress) {
+              onProgress(percentage, _file);
+            }
+          }
+        },
+      })
+      .then((resp) => {
+        console.log(resp);
+        updataFileList(_file, { status: "success", response: resp.data });
+        if (onSuccess) {
+          onSuccess(resp.data, _file);
+        }
+        if (onChange) {
+          onChange(_file);
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+        updataFileList(_file, { status: "error", error: err });
+        if (onError) {
+          onError(err, _file);
+        }
+        if (onChange) {
+          onChange(_file);
+        }
+      });
+  };
+  console.log(fileList, "----");
+
   return (
     <div className="upload-component">
       <Button btnType="primary" onClick={handleClick}>
@@ -108,6 +185,7 @@ const Upload: FC<UploadProps> = (props) => {
         ref={uploadRef}
         onChange={handleFileChange}
       />
+      <UploadList fileList={fileList} onRemove={handleRemove} />
     </div>
   );
 };
