@@ -61,11 +61,11 @@ const Upload: FC<UploadProps> = (props) => {
     onError,
     beforeUpload,
     onChange,
-    defaultFileList,
     onRemove,
     name,
     data,
     headers,
+    defaultFileList,
     withCredentials,
     accept,
     multiple,
@@ -190,7 +190,7 @@ const Upload: FC<UploadProps> = (props) => {
         }
       });
   };
-  console.log(fileList, "----");
+  // console.log(fileList, "----");
 
   return (
     <div className="upload-component">
