@@ -1,7 +1,7 @@
 import React, { FC, useRef, ChangeEvent, useState } from "react";
 import axios from "axios";
-import Button from "../Button/button";
 import UploadList from "./uploadList";
+import Dragger from "./dragger";
 export type UploadFileStatus = "ready" | "uploading" | "success" | "error";
 export interface UploadFile {
   uid: string;
@@ -63,6 +63,14 @@ const Upload: FC<UploadProps> = (props) => {
     onChange,
     defaultFileList,
     onRemove,
+    name,
+    data,
+    headers,
+    withCredentials,
+    accept,
+    multiple,
+    children,
+    drag,
   } = props;
   // 上传文件dom对象
   const uploadRef = useRef<HTMLInputElement>(null);
@@ -124,7 +132,6 @@ const Upload: FC<UploadProps> = (props) => {
     });
   };
   const post = (file: File) => {
-    const formData = new FormData();
     let _file: UploadFile = {
       uid: Date.now() + "upload-file",
       status: "ready",
@@ -133,13 +140,25 @@ const Upload: FC<UploadProps> = (props) => {
       percent: 0,
       raw: file,
     };
-    setFileList([_file, ...fileList]);
-    formData.append(file.name, file);
+    // setFileList([_file, ...fileList]); bug 多个文件上传的时候 只有一个文件显示 异步更新的bug 需要回调函数来解决
+    setFileList((prevList) => {
+      return [_file, ...prevList];
+    });
+    const formData = new FormData();
+    formData.append(name || "file", file);
+    if (data) {
+      Object.keys(data).forEach((key) => {
+        formData.append(key, data[key]);
+      });
+    }
     axios
       .post(action, formData, {
         headers: {
+          ...headers,
           "Content-Type": "multiple/form-data",
         },
+        // 支持携带cookie 这是axios默认支持的功能
+        withCredentials,
         onUploadProgress: (e) => {
           let percentage = Math.round((e.loaded * 100) / e.total) || 0;
           if (percentage < 100) {
@@ -175,18 +194,35 @@ const Upload: FC<UploadProps> = (props) => {
 
   return (
     <div className="upload-component">
-      <Button btnType="primary" onClick={handleClick}>
-        点击上传文件
-      </Button>
-      <input
-        type="file"
-        style={{ display: "none" }}
-        className="upload-file"
-        ref={uploadRef}
-        onChange={handleFileChange}
-      />
+      <div
+        className="upload-input"
+        style={{ display: "inline-block" }}
+        onClick={handleClick}
+      >
+        {drag ? (
+          <Dragger
+            onFile={(files) => {
+              uploadFiles(files);
+            }}
+          >
+            {children}
+          </Dragger>
+        ) : (
+          children
+        )}
+        <input
+          type="file"
+          style={{ display: "none" }}
+          className="upload-file"
+          ref={uploadRef}
+          onChange={handleFileChange}
+          accept={accept}
+          multiple={multiple}
+        />
+      </div>
       <UploadList fileList={fileList} onRemove={handleRemove} />
     </div>
   );
 };
+Upload.defaultProps = { name: "file" };
 export default Upload;

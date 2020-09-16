@@ -37,14 +37,15 @@ const simpleUpload = () => {
       onError={action("error")}
       onChange={action("change")}
       defaultFileList={defaultFileList}
-      name="filename"
+      name="filename-test"
       data={{ demo: "test" }}
-      headers={{ "X-Powered-By": "demo" }}
+      headers={{ "X-Powered-By": "demo-keys" }}
       accept=".png"
       multiple
+      drag
     >
       <Button size="lg" btnType="primary">
-        <Icon icon="upload" /> 点击上传{" "}
+        <Icon icon="upload" /> 点击上传
       </Button>
     </Upload>
   );
