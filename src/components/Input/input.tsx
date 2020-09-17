@@ -28,7 +28,7 @@ export interface InputProps
  * ### 引用方法
  *
  * ~~~js
- * import { Input } from 'my_components'
+ * import { Input } from 'escape'
  * ~~~
  */
 export const Input: FC<InputProps> = (props) => {

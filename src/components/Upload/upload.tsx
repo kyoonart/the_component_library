@@ -50,7 +50,7 @@ export interface UploadProps {
  * ### 引用方法
  *
  * ~~~js
- * import { Upload } from 'my-components'
+ * import { Upload } from 'escape'
  * ~~~
  */
 const Upload: FC<UploadProps> = (props) => {

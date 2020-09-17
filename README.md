@@ -2,4 +2,4 @@
 
 In the project directory, you can run:
 
-### `npm i -S my-components`
+### `npm i -S escape`

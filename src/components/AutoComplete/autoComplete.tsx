@@ -33,7 +33,7 @@ export interface AutoCompleteProps extends Omit<InputProps, "onSelect"> {
  * ### 引用方法
  *
  * ~~~js
- * import { AutoComplete } from 'my-component'
+ * import { AutoComplete } from 'escape'
  * ~~~
  */
 export const AutoComplete: FC<AutoCompleteProps> = (props) => {

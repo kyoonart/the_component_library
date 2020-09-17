@@ -35,10 +35,8 @@ describe("test Alert component", () => {
 
     // 测试标题
     expect(getByText("标题")).toHaveClass("alert-title");
-
     // 测试描述
     expect(getByText("描述")).toHaveClass("alert-desc");
-
     // 测试icon是否存在
     expect(container.querySelector(".alert-close")).toBeInTheDocument();
     const closeIcon = container.querySelector(

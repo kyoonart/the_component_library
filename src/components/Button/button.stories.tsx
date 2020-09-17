@@ -26,18 +26,6 @@ const buttonWithType = () => (
 );
 
 storiesOf("Button 组件", module)
-  // .addDecorator(CenterDecorator)
-  // .addDecorator(withInfo)
-  // .addParameters({
-  //   info: {
-  //     text: `### 这是一个组件
-  //     ~~~js
-  //     const a = 1
-  //     ~~~
-  //     `,
-  //     inline: true
-  //   }
-  // })
   .add("Button", defaultButton)
   // .add('不同尺寸的 Button', buttonWithSize, {info: {inline: false}})
   .add("不同尺寸的 Button", buttonWithSize)
