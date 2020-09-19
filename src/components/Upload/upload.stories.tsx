@@ -45,7 +45,8 @@ const simpleUpload = () => {
       drag
     >
       <Button size="lg" btnType="primary" style={{ marginTop: "40px" }}>
-        <Icon icon="upload" /> 点击上传
+        <Icon icon="upload" />
+        点击上传
       </Button>
     </Upload>
   );
