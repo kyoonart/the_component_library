@@ -1,7 +1,7 @@
 import React from "react";
 import { configure, addDecorator, addParameters } from "@storybook/react";
 import { withInfo } from "@storybook/addon-info";
-import "./fix_info_style.scss";
+import "./fix.scss";
 import "../src/styles/index.scss";
 
 const wrapperStyle: React.CSSProperties = {
@@ -28,7 +28,7 @@ const loaderFn = () => {
     require("../src/components/Menu/menu.stories.tsx"),
     require("../src/components/Input/input.stories.tsx"),
     require("../src/components/AutoComplete/autoComplete.stories.tsx"),
-    // require("../src/components/Upload/upload.stories.tsx"),
+    require("../src/components/Upload/upload.stories.tsx"),
   ];
 };
 

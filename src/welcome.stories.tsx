@@ -7,7 +7,7 @@ storiesOf("welcome page", module).add(
     return (
       <div>
         <h1>欢迎使用我的组件</h1>
-        <h4>安装试试</h4>
+        <h4>安装试试~</h4>
         <code>npm install escape --save</code>
       </div>
     );

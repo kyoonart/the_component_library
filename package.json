@@ -2,19 +2,21 @@
     "name": "escape",
     "version": "1.1.2",
     "private": false,
-    "author": "yiq",
+    "author": "pengtaoa",
     "description": "react components lib",
     "main": "dist/index.js",
     "module": "dist/index.js",
     "types": "dist/index.d.ts",
     "license": "MIT",
     "keywords": [
-        "UI"
+        "UI",
+        "component",
+        "react"
     ],
-    "homepage": "https://ifreeovo.github.io/PROJECT_DEMO_react_imoocAntdLib/?path=/story/welcome-page--%E6%AC%A2%E8%BF%8E%E4%BD%BF%E7%94%A8",
+    "homepage": "https://github.com/pengtaoa/the_component_library",
     "repository": {
         "type": "git",
-        "url": "https://github.com/IFreeOvO/PROJECT_DEMO_react_imoocAntdLib"
+        "url": "https://github.com/pengtaoa/the_component_library"
     },
     "files": [
         "dist"
@@ -84,7 +86,7 @@
         "@types/react-transition-group": "^4.2.4",
         "@types/storybook__addon-info": "^5.2.1",
         "cross-env": "^7.0.2",
-        "husky": "^4.2.3",
+        "husky": "^4.3.0",
         "node-sass": "^4.13.1",
         "react": "^16.13.1",
         "react-docgen-typescript-loader": "^3.7.2",

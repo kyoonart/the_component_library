@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-
+import "./styles//index.scss";
 import Button from "./components/Button/button";
 import Alert from "./components/Alert/alert";
 import Menu from "./components/Menu/menu";
@@ -7,13 +7,14 @@ import MenuItem from "./components/Menu/menuItem";
 import SubMenu from "./components/Menu/subMenu";
 import Icon from "./components/Icon/icon";
 import Transition from "./components/Transition/transition";
-
-function App() {
+import Input from "./components/Input";
+import Upload from "./components/Upload/";
+export const App = () => {
   const [show, setShow] = useState(false);
 
   return (
     <div className="App" style={{ padding: 40 }}>
-      <h2>hhh</h2>
+      <h2>组件展示</h2>
       <Button className="custom">默认按钮</Button>
       <Button disabled>禁用</Button>
       <Button size="lg" btnType="primary">
@@ -96,8 +97,10 @@ function App() {
           <Button size="lg">答案呢</Button>
         </Transition>
       </div>
+      <Input></Input>
+      <Upload action="https://jsonplaceholder.typicode.com/posts"></Upload>
     </div>
   );
-}
+};
 
 export default App;
