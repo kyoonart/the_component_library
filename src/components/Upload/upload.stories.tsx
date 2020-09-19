@@ -44,7 +44,7 @@ const simpleUpload = () => {
       multiple
       drag
     >
-      <Button size="lg" btnType="primary">
+      <Button size="lg" btnType="primary" style={{ marginTop: "40px" }}>
         <Icon icon="upload" /> 点击上传
       </Button>
     </Upload>
@@ -70,5 +70,5 @@ const dragUpload = () => {
 };
 
 storiesOf("Upload 组件", module)
-  .add("Upload", simpleUpload)
+  .add("点击上传", simpleUpload)
   .add("拖拽上传", dragUpload);
