@@ -1,3 +1,5 @@
+
+
 本项目所涉及到的技术栈：React、TypeScript 、StoryBook、sass
 
 第三方库的使用：react-transtion fontawesome、axios，classnames
@@ -115,13 +117,123 @@ type AnchorButtonProps = BaseButtonProps & AnchorHTMLAttributes<HTMLElement>;
 export type ButtonProps = Partial<NativeButtonProps & AnchorButtonProps>;
 ~~~
 
+主要代码~ 可以看出button组件还是非常简单的 
 
+~~~ js
+const classes = classNames("btn", className, {
+    [`btn-${size}`]: size,
+    [`btn-${btnType}`]: btnType,
+    disabled: btnType === "link" && disabled,
+  });
 
+  if (btnType === "link") {
+    return (
+      <a href={href} className={classes} {...restProps}>
+        {children}
+      </a>
+    );
+  } else {
+    return (
+      <button disabled={disabled} className={classes} {...restProps}>
+        {children}
+      </button>
+    );
+  }
+~~~
 
+测试case  这里使用的是[jest](https://jestjs.bootcss.com/docs//getting-started)  react默认支持的测试框架 很好用 使用它需要看看文档、学习基础测试如何编写
 
+简单示例
 
+~~~js
+const sum = require('./sum');
+test('adds 1 + 2 to equal 3', () => {
+  expect(sum(1, 2)).toBe(3);
+});
+~~~
 
+button测试case  刚开始眼睛看晕了~~~
 
+~~~js
+describe('test Button component', () => {
+  it('should render the correct default button', () => {
+    const wrapper = render(<Button {...defaultProps}>nice</Button>)
+    const element = wrapper.getByText('nice') as HTMLButtonElement
+    expect(element).toBeInTheDocument()// 证明元素存在
+    expect(element.tagName).toEqual('BUTTON')
+    expect(element).toHaveClass('btn btn-default')
+    expect(element.disabled).toBeFalsy()
+
+    fireEvent.click(element)
+    expect(defaultProps.onClick).toHaveBeenCalled()
+  })
+
+  it('should render the correct component based on different props', () => {
+    const wrapper = render(<Button {...testProps}>nice</Button>)
+    const element = wrapper.getByText('nice')
+    expect(element).toBeInTheDocument()
+    expect(element).toHaveClass('btn-primary btn-lg klass')
+  })
+
+  it('should render a link when btnType equals link and href is provided', () => {
+    const wrapper = render(<Button {...testProps} btnType='link' href='https://www.baidu.com/'>nice</Button>)
+    const element = wrapper.getByText('nice')
+    expect(element).toBeInTheDocument()
+    expect(element.tagName).toEqual('A')
+    expect(element).toHaveClass('btn btn-link')
+  })
+
+  it('should render disabled button when disable set to true', () => {
+    const wrapper = render(<Button {...disabledProps}>nice</Button>)
+    const element = wrapper.getByText('nice') as HTMLButtonElement
+    expect(element).toBeInTheDocument()
+    expect(element.disabled).toBeTruthy()
+    fireEvent.click(element)
+    expect(disabledProps.onClick).not.toHaveBeenCalled()
+  })
+})
+
+~~~
+
+最后一步 编写stories文件 展示我们的button
+
+~~~
+const defaultButton = () => (
+  <Button onClick={action("clicked")}>default button</Button>
+);
+
+const buttonWithSize = () => (
+  <div>
+    <Button size="lg">large button</Button>
+    <Button size="sm">small button</Button>
+  </div>
+);
+
+const buttonWithType = () => (
+  <div>
+    <Button btnType="danger">danger button</Button>
+    <Button btnType="primary">primary button</Button>
+    <Button btnType="link" target="_blank" href="https://www.baidu.com/">
+      link button
+    </Button>
+  </div>
+);
+
+storiesOf("Button 组件", module)
+  .add("Button", defaultButton)
+  // .add('不同尺寸的 Button', buttonWithSize, {info: {inline: false}})
+  .add("不同尺寸的 Button", buttonWithSize)
+  .add("不同类型的 Button", buttonWithType);
+
+~~~
+
+效果
+
+[![woHSvd.jpg](https://s1.ax1x.com/2020/09/20/woHSvd.jpg)](https://imgchr.com/i/woHSvd)
+
+[![woHA58.jpg](https://s1.ax1x.com/2020/09/20/woHA58.jpg)](https://imgchr.com/i/woHA58)
+
+到这组件就算完成了
 
 
 
