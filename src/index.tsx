@@ -14,5 +14,4 @@ export { default as Progress } from "./components/Progress/progress";
 export { default as Transition } from "./components/Transition/transition";
 export { default as Upload } from "./components/Upload";
 export { default as Alert } from "./components/Alert";
-
 ReactDOM.render(<App />, document.getElementById("root"));
