@@ -229,9 +229,9 @@ storiesOf("Button 组件", module)
 
 效果
 
-[![woHSvd.jpg](https://s1.ax1x.com/2020/09/20/woHSvd.jpg)](https://imgchr.com/i/woHSvd)
+![](https://s1.ax1x.com/2020/09/20/woHSvd.jpg)
 
-[![woHA58.jpg](https://s1.ax1x.com/2020/09/20/woHA58.jpg)](https://imgchr.com/i/woHA58)
+![](https://s1.ax1x.com/2020/09/20/woHA58.jpg)
 
 到这组件就算完成了
 
