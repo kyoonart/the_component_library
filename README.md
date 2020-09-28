@@ -1,6 +1,6 @@
 本项目所涉及到的技术栈：React、TypeScript 、StoryBook、sass
 
-第三方库的使用：react-transtion fontawesome、axios，classnames
+第三方库的使用：react-transtion fontawesome、axios、classnames
 
 React 是组件的世界，创造各种组件就是它的终极目标。
 
