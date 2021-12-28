@@ -194,7 +194,7 @@ describe('test Button component', () => {
 
 最后一步 编写 stories 文件 展示我们的 button
 
-```
+```js
 const defaultButton = () => (
   <Button onClick={action("clicked")}>default button</Button>
 );
